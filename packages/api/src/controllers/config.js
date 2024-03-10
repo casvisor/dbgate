@@ -34,7 +34,7 @@ module.exports = {
     const permissions = login ? login.permissions : process.env.PERMISSIONS;
 
     return {
-      runAsPortal: !!connections.portalConnections,
+      runAsPortal: !!connections.portalConnections || !!process.env.runAsPortal,
       singleDbConnection: connections.singleDbConnection,
       singleConnection: connections.singleConnection,
       // hideAppEditor: !!process.env.HIDE_APP_EDITOR,

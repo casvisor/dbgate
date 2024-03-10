@@ -1,6 +1,7 @@
 const AsyncLock = require('async-lock');
 const fs = require('fs-extra');
 const uuidv1 = require('uuid/v1');
+const socket = require('./socket');
 
 const lock = new AsyncLock();
 
@@ -109,6 +110,33 @@ class JsonLinesDatabase {
     this.data = this.data.filter(x => x._id != id);
     await this._save();
     return removed;
+  }
+
+  watch() {
+    if (!fs.existsSync(this.filename)) {
+      // 如果文件不存在，则创建一个空文件
+      fs.writeFileSync(this.filename, '');
+    }
+
+    fs.watch(this.filename, { persistent: true }, (eventType, filename) => {
+      console.log(`File ${filename} changed, event type is: ${eventType}`);
+      if (eventType === 'change') {
+        this._reload();
+        socket.emitChanged('connection-list-changed');
+      }
+    });
+  }
+
+  async _reload() {
+    try {
+      const text = await fs.promises.readFile(this.filename, { encoding: 'utf-8' });
+      this.data = text
+          .split('\n')
+          .filter(x => x.trim())
+          .map(x => JSON.parse(x));
+    } catch (err) {
+      console.error(`Error reloading file ${this.filename}`, err);
+    }
   }
 
   //   async _openReader() {

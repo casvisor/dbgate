@@ -192,6 +192,7 @@ module.exports = {
     if (!portalConnections) {
       // @ts-ignore
       this.datastore = new JsonLinesDatabase(path.join(dir, 'connections.jsonl'));
+      this.datastore.watch();
     }
   },
 
@@ -273,7 +274,6 @@ module.exports = {
     } else {
       res = await this.datastore.insert(encrypted);
     }
-    socket.emitChanged('connection-list-changed');
     socket.emitChanged('used-apps-changed');
     if (this._closeAll) {
       this._closeAll(connection._id);
@@ -289,7 +289,6 @@ module.exports = {
     if (portalConnections) return;
     testConnectionPermission(_id, req);
     const res = await this.datastore.patch(_id, values);
-    socket.emitChanged('connection-list-changed');
     return res;
   },
 
@@ -297,7 +296,6 @@ module.exports = {
   async batchChangeFolder({ folder, newFolder }, req) {
     // const updated = await this.datastore.find(x => x.parent == folder);
     const res = await this.datastore.updateAll(x => (x.parent == folder ? { ...x, parent: newFolder } : x));
-    socket.emitChanged('connection-list-changed');
     return res;
   },
 
@@ -313,7 +311,6 @@ module.exports = {
       databases = [...databases, { name: database, ...values }];
     }
     const res = await this.datastore.patch(conid, { databases });
-    socket.emitChanged('connection-list-changed');
     socket.emitChanged('used-apps-changed');
     // socket.emitChanged(`db-apps-changed-${conid}-${database}`);
     return res;
@@ -324,7 +321,6 @@ module.exports = {
     if (portalConnections) return;
     testConnectionPermission(connection, req);
     const res = await this.datastore.remove(connection._id);
-    socket.emitChanged('connection-list-changed');
     return res;
   },
 

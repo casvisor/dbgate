@@ -114,7 +114,6 @@ class JsonLinesDatabase {
 
   watch() {
     if (!fs.existsSync(this.filename)) {
-      // 如果文件不存在，则创建一个空文件
       fs.writeFileSync(this.filename, '');
     }
 

@@ -34,4 +34,4 @@ packages/api/src/packagedPluginsContent.js
 .VSCodeCounter
 
 .idea
-packages/api/data
+.dbgate

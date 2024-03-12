@@ -4,7 +4,6 @@ on: [ push, pull_request ]
 
 jobs:
   build:
-    if: github.repository == 'casvisor/dbgate' && github.event_name == 'push'
     runs-on: ${{ matrix.os }}
 
     strategy:
@@ -73,6 +72,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_PASSWORD }}
 
       - name: Build and push
+        if: github.repository == 'casvisor/dbgate' && github.event_name == 'push'
         uses: docker/build-push-action@v3
         with:
           push: true
@@ -81,6 +81,7 @@ jobs:
           platforms: linux/amd64,linux/arm64,linux/arm/v7
 
       - name: Build and push alpine
+        if: github.repository == 'casvisor/dbgate' && github.event_name == 'push'
         uses: docker/build-push-action@v3
         with:
           push: true

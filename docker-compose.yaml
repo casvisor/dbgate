@@ -9,12 +9,12 @@ services:
     # image: dbgate/dbgate:beta
     restart: always
     ports:
-      - 3100:3000
+      - "3100:3000"
     # volumes:
     #   - /home/jena/dbgate-data:/root/dbgate-data
 
     volumes:
-      - dbgate-data:/root/.dbgate
+      - dbgate-data:/home/dbgate-docker/.dbgate
     
     # environment:
     #   WEB_ROOT: /dbgate

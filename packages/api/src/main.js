@@ -57,7 +57,9 @@ function start() {
 
   app.use(cors());
 
-  if (platformInfo.isDocker) {
+  if (platformInfo.isCasvisor) {
+    app.use(getExpressPath('/'), express.static('/home/casvisor/dbgate-docker/public'));
+  } else if(platformInfo.isDocker){
     // server static files inside docker container
     app.use(getExpressPath('/'), express.static('/home/dbgate-docker/public'));
   } else if (platformInfo.isNpmDist) {

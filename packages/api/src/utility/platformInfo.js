@@ -12,6 +12,7 @@ const isDocker = fs.existsSync('/home/dbgate-docker/public');
 const isDevMode = process.env.DEVMODE == '1';
 const isNpmDist = !!global['IS_NPM_DIST'];
 const isForkedApi = processArgs.isForkedApi;
+const isCasvisor = fs.existsSync('/home/casvisor/dbgate-docker');
 
 // function moduleAvailable(name) {
 //   try {
@@ -27,6 +28,7 @@ const platformInfo = {
   isMac,
   isLinux,
   isDocker,
+  isCasvisor,
   isElectronBundle: isElectron() && !isDevMode,
   isForkedApi,
   isElectron: isElectron(),

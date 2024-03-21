@@ -113,14 +113,14 @@ function start() {
   app.use(getExpressPath('/runners/data'), express.static(rundir()));
 
   if (platformInfo.isDocker) {
-    const port = process.env.PORT || 3000;
+    const port = process.env.PORT || 19500;
     logger.info(`DbGate API listening on port ${port} (docker build)`);
     server.listen(port);
   } else if (platformInfo.isNpmDist) {
     getPort({
       port: parseInt(
         // @ts-ignore
-        process.env.PORT || 3000
+        process.env.PORT || 19500
       ),
     }).then(port => {
       server.listen(port, () => {
@@ -128,11 +128,11 @@ function start() {
       });
     });
   } else if (process.env.DEVWEB) {
-    const port = process.env.PORT || 3000;
+    const port = process.env.PORT || 19500;
     logger.info(`DbGate API & web listening on port ${port} (dev web build)`);
     server.listen(port);
   } else {
-    const port = process.env.PORT || 3000;
+    const port = process.env.PORT || 19500;
     logger.info(`DbGate API listening on port ${port} (dev API build)`);
     server.listen(port);
   }

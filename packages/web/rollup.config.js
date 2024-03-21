@@ -8,6 +8,8 @@ import sveltePreprocess from 'svelte-preprocess';
 import typescript from '@rollup/plugin-typescript';
 import replace from '@rollup/plugin-replace';
 import css from 'rollup-plugin-css-only';
+import { config } from 'dotenv'
+config({ path: ".env"}).parsed
 
 const production = !process.env.ROLLUP_WATCH;
 

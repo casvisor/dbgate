@@ -32,9 +32,6 @@ function datadirCore() {
   if (processArgs.workspaceDir) {
     return processArgs.workspaceDir;
   }
-  if(platformInfo.isCasvisor){
-    return path.join('/home/casvisor/dbgate-docker', '.dbgate');
-  }
   return path.join(os.homedir(), '.dbgate');
 }
 
@@ -73,9 +70,6 @@ function packagedPluginsDir() {
   // console.log('platformInfo.isForkedApi', platformInfo.isForkedApi);
   if (platformInfo.isDevMode) {
     return path.resolve(__dirname, '../../../../plugins');
-  }
-  if(platformInfo.isCasvisor){
-    return path.join('/home/casvisor/dbgate-docker', 'plugins');
   }
   if (platformInfo.isDocker) {
     return '/home/dbgate-docker/plugins';

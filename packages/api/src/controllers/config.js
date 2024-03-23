@@ -34,13 +34,13 @@ module.exports = {
     const permissions = login ? login.permissions : process.env.PERMISSIONS;
 
     return {
-      runAsPortal: !!connections.portalConnections || !!process.env.RUN_AS_PORTAL || platformInfo.isCasvisor,
+      runAsPortal: !!connections.portalConnections || !!process.env.RUN_AS_PORTAL,
       singleDbConnection: connections.singleDbConnection,
       singleConnection: connections.singleConnection,
       // hideAppEditor: !!process.env.HIDE_APP_EDITOR,
       allowShellConnection: platformInfo.allowShellConnection,
       allowShellScripting: platformInfo.allowShellScripting,
-      isDocker: platformInfo.isDocker || platformInfo.isCasvisor,
+      isDocker: platformInfo.isDocker,
       permissions,
       login,
       oauth: process.env.OAUTH_AUTH,

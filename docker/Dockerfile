@@ -24,7 +24,5 @@ COPY . .
 RUN ["chmod", "+x", "/home/dbgate-docker/entrypoint.sh"]
 
 WORKDIR /home/dbgate-docker
-EXPOSE 3000
-VOLUME /home/dbgate-docker/.dbgate
 
 CMD ["/home/dbgate-docker/entrypoint.sh"]

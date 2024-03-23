@@ -3,8 +3,8 @@
   "version": "5.0.0-alpha.1",
   "license": "MIT",
   "scripts": {
-    "build": "cross-env NODE_ENV=production rollup -c",
-    "dev": "cross-env NODE_ENV=development rollup -c -w",
+    "build": "rollup -c",
+    "dev": "cross-env rollup -c -w",
     "start": "sirv public --port 5001",
     "validate": "svelte-check",
     "prepublishOnly": "yarn build"

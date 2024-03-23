@@ -20,11 +20,11 @@
         // if (detail) detail = '\n\n' + detail;
 
         if (lastDbGateCrash && new Date().getTime() - lastDbGateCrash < 30 * 1000) {
-          if (
-            window.confirm(
-              'Sorry, DbGate has crashed again.\nDo you want to close all tabs in order to avoid crashing after next reload?\nYou can reopen closed tabs in closed tabs history.'
-            )
-          ) {
+          // if (
+          //   window.confirm(
+          //     'Sorry, DbGate has crashed again.\nDo you want to close all tabs in order to avoid crashing after next reload?\nYou can reopen closed tabs in closed tabs history.'
+          //   )
+          // ) {
             try {
               let openedTabs = (await localforage.getItem<TabDefinition[]>('openedTabs')) || [];
               if (!_.isArray(openedTabs)) openedTabs = [];
@@ -42,20 +42,20 @@
             //   console.error('Error clearing app data', err);
             // }
             window.location.reload();
-          } else {
-            getElectron()?.send('open-dev-tools');
-          }
+          // } else {
+          //   getElectron()?.send('open-dev-tools');
+          // }
         } else {
-          if (
-            window.confirm(
-              'Sorry, DbGate has crashed.\nPress OK for reload application\nPress Cancel and inspect Console in Developer tools for error details'
-            )
-          ) {
+          // if (
+          //   window.confirm(
+          //     'Sorry, DbGate has crashed.\nPress OK for reload application\nPress Cancel and inspect Console in Developer tools for error details'
+          //   )
+          // ) {
             localStorage.setItem('lastDbGateCrash', JSON.stringify(new Date().getTime()));
             window.location.reload();
-          } else {
-            getElectron()?.send('open-dev-tools');
-          }
+          // } else {
+          //   getElectron()?.send('open-dev-tools');
+          // }
         }
       }
     }, 500);
